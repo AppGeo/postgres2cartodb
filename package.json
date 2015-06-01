@@ -1,0 +1,19 @@
+{
+  "name": "postgres2cartodb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Calvin W. Metcalf <calvin.metcalf@gmail.com>",
+  "bin": "./bin.js",
+  "license": "MIT",
+  "dependencies": {
+    "cartodb-tools": "^2.2.1",
+    "cartodb-uploader": "calvinmetcalf/cartodb-uploader#non-streaming",
+    "colors": "^1.1.0",
+    "postgres2geojson": "^1.0.0",
+    "yargs": "^3.10.0"
+  }
+}
