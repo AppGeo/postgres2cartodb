@@ -5,6 +5,7 @@ var fs = require('fs');
 var convert = require('./');
 var path = require('path');
 var argv = require('yargs')
+    .usage('Usage: $0 inTable [outTable] [options]')
     .alias('p', 'postgres')
     .describe('p', 'postgres connection config, should be a path to a json file'.yellow)
     .default('p', null, '$POSTGRES_CONFIG')
@@ -17,8 +18,9 @@ var argv = require('yargs')
     .alias('P', 'primary')
     .describe('P', 'primary key'.yellow)
     .default('P', 'objectid')
-    .example('$0 -p ./postgres.json -c ./cartodb.json intable outtable', 'specify the files'.green)
-    .example('$0 intable', 'use enviromental variables and the same table names'.green)
+    .example('$0 -p ./postgres.json -c ./cartodb.json inTable outTable', 'specify the files'.green)
+    .example('$0 inTable', 'use enviromental variables and the same table names'.green)
+    .example('$0 inTable outTable --no-g', 'use enviromental variables and pass no geometry'.green)
     .help('h', 'Show Help'.yellow)
    .alias('h', 'help')
     .argv;
