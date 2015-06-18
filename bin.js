@@ -15,9 +15,6 @@ var argv = require('yargs')
     .alias('g', 'geometry')
     .describe('g', 'geometry field'.yellow)
     .default('g', 'shape')
-    .alias('P', 'primary')
-    .describe('P', 'primary key'.yellow)
-    .default('P', 'objectid')
     .example('$0 -p ./postgres.json -c ./cartodb.json inTable outTable', 'specify the files'.green)
     .example('$0 inTable', 'use enviromental variables and the same table names'.green)
     .example('$0 inTable outTable --no-g', 'use enviromental variables and pass no geometry'.green)
@@ -29,7 +26,6 @@ var postgresConn = JSON.parse(fs.readFileSync(path.resolve(argv.postgres || proc
 var cartodbConn = JSON.parse(fs.readFileSync(path.resolve(argv.cartodb || process.env.CARTODB_CONFIG)));
 
 var geometry = argv.geometry;
-var primary = argv.primary;
 
 var inTable = argv._[0];
 var outTable = argv._[1] || inTable;
@@ -37,7 +33,6 @@ var outTable = argv._[1] || inTable;
 var config = {
   postgres: {
     geometry: geometry,
-    primary: primary,
     table: inTable,
     connection: postgresConn
   },

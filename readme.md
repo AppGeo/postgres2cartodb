@@ -10,7 +10,6 @@ convert({
     },
     table: 'myTable',
     geometry: 'shape', // defaults to shape
-    primary: 'objectid' // defaults to objectid
   },
   cartodb: {
     connection: {

@@ -14,13 +14,12 @@ function convert(config, callback) {
   var geometry = config.postgres.geometry;
   var postgresTable = config.postgres.table;
   var cartodbTable = config.cartodb.table || postgresTable;
-  var primary = config.postgres.primary || 'objectid';
-  fromPostgres(postgresCon, postgresTable, geometry, primary, 0, 50).on('error', callback)
+  fromPostgres(postgresCon, postgresTable, geometry, 0, 50).on('error', callback)
     .pipe(uploader.geojson(cartodbCon, cartodbTable, function(err) {
       if (err) {
         return callback(err);
       }
-      fromPostgres(postgresCon, postgresTable, geometry, primary, 50).on('error', callback)
+      fromPostgres(postgresCon, postgresTable, geometry, 50).on('error', callback)
         .pipe(cartodbTools(cartodbCon.user, cartodbCon.key).createWriteStream(cartodbTable))
         .on('error', function(e) {
           callback(e);
