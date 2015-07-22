@@ -13,7 +13,10 @@
     "cartodb-tools": "^2.2.1",
     "cartodb-uploader": "calvinmetcalf/cartodb-uploader#non-streaming",
     "colors": "^1.1.0",
-    "postgres2geojson": "^2.0.1",
+    "pg": "^4.4.0",
+    "postgres2geojson": "^2.0.2",
+    "progress": "^1.1.8",
+    "readable-stream": "^2.0.2",
     "yargs": "^3.10.0"
   }
 }

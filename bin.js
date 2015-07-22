@@ -13,6 +13,7 @@ var argv = require('yargs')
     .describe('c', 'cartodb connection config, should be a path to a json file'.yellow)
     .default('c', null, '$CARTODB_CONFIG')
     .alias('g', 'geometry')
+    .alias('v', 'version')
     .describe('g', 'geometry field'.yellow)
     .default('g', 'shape')
     .example('$0 -p ./postgres.json -c ./cartodb.json inTable outTable', 'specify the files'.green)
@@ -21,6 +22,11 @@ var argv = require('yargs')
     .help('h', 'Show Help'.yellow)
    .alias('h', 'help')
     .argv;
+
+if (argv.v) {
+  console.log(require('./package.json').version);
+  process.exit();
+}
 
 var postgresConn = JSON.parse(fs.readFileSync(path.resolve(argv.postgres || process.env.POSTGRES_CONFIG)));
 var cartodbConn = JSON.parse(fs.readFileSync(path.resolve(argv.cartodb || process.env.CARTODB_CONFIG)));
@@ -39,13 +45,14 @@ var config = {
   cartodb: {
     connection: cartodbConn,
     table: outTable
-  }
+  },
+  progress: true
 };
 convert(config, function (err) {
   if (err) {
     console.log(err && err.stack || err);
     process.exit(1);
   }
-  console.log('done');
+  console.log('done'.green);
   process.exit(0);
 });
