@@ -23,7 +23,7 @@ var argv = require('yargs')
    .alias('h', 'help')
     .argv;
 
-if (argv.v) {
+if (argv.v || argv._[0] === 'version') {
   console.log(require('./package.json').version);
   process.exit();
 }

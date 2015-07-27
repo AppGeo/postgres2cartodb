@@ -74,7 +74,7 @@ function convert(config, callback) {
           .on('error', function(e) {
             callback(e);
           })
-          .on('finish', function() {
+          .on('end', function() {
             callback();
           });
       }));
