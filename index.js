@@ -4,7 +4,7 @@ var cartodbTools = require('cartodb-tools');
 var uploader = require('cartodb-uploader');
 var pg = require('pg');
 var ProgressBar = require('progress');
-var Transform = require('readable-stream').Transform;
+
 module.exports = convert;
 
 function convert(config, callback) {
@@ -17,7 +17,6 @@ function convert(config, callback) {
   var postgresTable = config.postgres.table;
   var cartodbTable = config.cartodb.table || postgresTable;
   var bar;
-  var counter = 0;
   function tick(num) {
     if (bar) {
       bar.tick(num);
