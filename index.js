@@ -34,7 +34,7 @@ function convert(config, callback) {
         if (err) {
           return callback(err);
         }
-        bar = new ProgressBar('[:bar] :percent :etas  ', {
+        bar = new ProgressBar('[:bar] :percent :current/:total  ', {
           total: parseInt(result.rows[0].c, 10),
           width: 20
         });
@@ -52,25 +52,8 @@ function convert(config, callback) {
         }
         tick(50);
         fromPostgres(postgresCon, postgresTable, geometry, 50).on('error', callback)
-          .pipe(new Transform({
-            objectMode: true,
-            transform: function (chunk, _, next) {
-              counter++;
-              if (counter >= 40) {
-                tick(counter);
-                counter = 0;
-              }
-              this.push(chunk);
-              next();
-            },
-            flush: function (done) {
-              if (counter) {
-                tick(counter);
-              }
-              done();
-            }
-          }))
           .pipe(cartodbTools(cartodbCon.user, cartodbCon.key).createWriteStream(cartodbTable))
+          .on('inserted', tick)
           .on('error', function(e) {
             callback(e);
           })
