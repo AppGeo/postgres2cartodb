@@ -10,7 +10,7 @@
   "bin": "./bin.js",
   "license": "MIT",
   "dependencies": {
-    "cartodb-tools": "^2.3.0",
+    "cartodb-tools": "^2.3.1",
     "cartodb-uploader": "calvinmetcalf/cartodb-uploader#non-streaming",
     "colors": "^1.1.0",
     "pg": "^4.4.0",

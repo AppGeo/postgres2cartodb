@@ -50,6 +50,7 @@ var config = {
 };
 convert(config, function (err) {
   if (err) {
+    console.log((new Error('trace')).stack);
     console.log(err && err.stack || err);
     process.exit(1);
   }
