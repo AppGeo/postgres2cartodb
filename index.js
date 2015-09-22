@@ -1,7 +1,6 @@
 'use strict';
 var fromPostgres = require('postgres2geojson');
-var cartodbTools = require('cartodb-tools');
-var uploader = require('cartodb-uploader');
+var intoCartoDB = require('into-cartodb');
 var pg = require('pg');
 var ProgressBar = require('progress');
 
@@ -15,6 +14,7 @@ function convert(config, callback) {
   var cartodbCon = config.cartodb.connection;
   var geometry = config.postgres.geometry;
   var postgresTable = config.postgres.table;
+  var method = config.method || 'create';
   var cartodbTable = config.cartodb.table || postgresTable;
   var bar;
   function tick(num) {
@@ -44,29 +44,9 @@ function convert(config, callback) {
     start();
   }
   function start () {
-    fromPostgres(postgresCon, postgresTable, geometry, 0, 50).on('error', function (e){
+    fromPostgres(postgresCon, postgresTable, geometry).on('error', function (e){
       console.log('from postgres round 1');
       callback(e);
-    })
-      .pipe(uploader.geojson(cartodbCon, cartodbTable, function(err) {
-        if (err) {
-          console.log('cartodb uploader');
-          return callback(err);
-        }
-        tick(50);
-        fromPostgres(postgresCon, postgresTable, geometry, 50).on('error', function (e){
-          console.log('from postgres round 2');
-          callback(e);
-        })
-          .pipe(cartodbTools(cartodbCon.user, cartodbCon.key).createWriteStream(cartodbTable))
-          .on('inserted', tick)
-          .on('error', function(e) {
-            console.log('into cartodb');
-            callback(e);
-          })
-          .on('end', function() {
-            callback();
-          });
-      }));
+    }).pipe(intoCartoDB(cartodbCon.user, cartodbCon.key, cartodbTable, method, callback)).on('inserted', tick);
   }
 }

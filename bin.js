@@ -16,6 +16,9 @@ var argv = require('yargs')
     .alias('v', 'version')
     .describe('g', 'geometry field'.yellow)
     .default('g', 'shape')
+    .alias('m', 'method')
+    .describe('m', 'import method'.yellow)
+    .default('m', 'create')
     .example('$0 -p ./postgres.json -c ./cartodb.json inTable outTable', 'specify the files'.green)
     .example('$0 inTable', 'use environmental variables and the same table names'.green)
     .example('$0 inTable outTable --no-g', 'use environmental variables and pass no geometry'.green)
@@ -46,6 +49,7 @@ var config = {
     connection: cartodbConn,
     table: outTable
   },
+  method: argv.method,
   progress: true
 };
 convert(config, function (err) {
