@@ -28,7 +28,7 @@ function convert(config, callback) {
         return callback(err);
       }
       pg.end();
-      client.query('select count(*) as c from ' + postgresTable + ';', function (err, result) {
+      client.query('select count(*) as c from "' + postgresTable + '";', function (err, result) {
         done();
         if (err) {
           return callback(err);
