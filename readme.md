@@ -33,6 +33,8 @@ Options:
                   file                           [default: $CARTODB_CONFIG]
   -g, --geometry  geometry field                    [default: "shape"]
   -m, --method     import method                             [default: "create"]
+  -r, --replace    switch to replace mode
+  -a, --append     switch to append mode
   -b, --batchsize  set the batch size                             [default: 200]
   -d, --direct     upload directly to the table (create/append only)
                                                                 [default: false]

@@ -19,6 +19,10 @@ var argv = require('yargs')
     .alias('m', 'method')
     .describe('m', 'import method'.yellow)
     .default('m', 'create')
+    .alias('r', 'replace')
+    .describe('r', 'switch to replace mode'.yellow)
+    .alias('a', 'append')
+    .describe('a', 'switch to append mode'.yellow)
     .alias('b', 'batchsize')
     .describe('b', 'set the batch size'.yellow)
     .default('b', 200)
@@ -44,7 +48,15 @@ var geometry = argv.geometry;
 
 var inTable = argv._[0];
 var outTable = argv._[1] || inTable;
-
+function getMethod() {
+  if (argv.a) {
+    return 'append';
+  }
+  if (argv.r) {
+    return 'replace';
+  }
+  return argv.m;
+}
 var config = {
   postgres: {
     geometry: geometry,
@@ -55,7 +67,7 @@ var config = {
     connection: cartodbConn,
     table: outTable
   },
-  method: argv.method,
+  method: getMethod(),
   progress: true,
   batchSize: parseInt(argv.b, 10),
   direct: argv.d
