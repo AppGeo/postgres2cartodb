@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "colors": "^1.1.0",
-    "into-cartodb": "^1.0.0",
+    "into-cartodb": "^2.1.0",
     "pg": "^4.4.0",
     "postgres2geojson": "^2.0.2",
     "progress": "^1.1.8",

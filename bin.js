@@ -19,6 +19,12 @@ var argv = require('yargs')
     .alias('m', 'method')
     .describe('m', 'import method'.yellow)
     .default('m', 'create')
+    .alias('b', 'batchsize')
+    .describe('b', 'set the batch size'.yellow)
+    .default('b', 200)
+    .alias('d', 'direct')
+    .default('d', false)
+    .describe('d', 'upload directly to the table (create/append only)'.yellow)
     .example('$0 -p ./postgres.json -c ./cartodb.json inTable outTable', 'specify the files'.green)
     .example('$0 inTable', 'use environmental variables and the same table names'.green)
     .example('$0 inTable outTable --no-g', 'use environmental variables and pass no geometry'.green)
@@ -50,7 +56,9 @@ var config = {
     table: outTable
   },
   method: argv.method,
-  progress: true
+  progress: true,
+  batchSize: parseInt(argv.b, 10),
+  direct: argv.d
 };
 convert(config, function (err) {
   if (err) {

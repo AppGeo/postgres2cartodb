@@ -15,6 +15,15 @@ function convert(config, callback) {
   var geometry = config.postgres.geometry;
   var postgresTable = config.postgres.table;
   var method = config.method || 'create';
+  var options = {
+    method: method
+  };
+  if (config.batchSize){
+    options.batchSize = config.batchSize
+  }
+  if (config.direct) {
+    options.direct = config.direct;
+  }
   var cartodbTable = config.cartodb.table || postgresTable;
   var bar;
   function tick(num) {
@@ -47,6 +56,6 @@ function convert(config, callback) {
     fromPostgres(postgresCon, postgresTable, geometry).on('error', function (e){
       console.log('from postgres round 1');
       callback(e);
-    }).pipe(intoCartoDB(cartodbCon.user, cartodbCon.key, cartodbTable, method, callback)).on('inserted', tick);
+    }).pipe(intoCartoDB(cartodbCon.user, cartodbCon.key, cartodbTable, options, callback)).on('inserted', tick);
   }
 }

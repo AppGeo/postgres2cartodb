@@ -1,4 +1,4 @@
-postgres2cartodb
+ postgres2cartodb
 ===
 
 ```js
@@ -32,6 +32,10 @@ Options:
   -c, --cartodb   cartodb connection config, should be a path to a json
                   file                           [default: $CARTODB_CONFIG]
   -g, --geometry  geometry field                    [default: "shape"]
+  -m, --method     import method                             [default: "create"]
+  -b, --batchsize  set the batch size                             [default: 200]
+  -d, --direct     upload directly to the table (create/append only)
+                                                                [default: false]
   -h, --help      Show Help                                  [boolean]
 
 Examples:
