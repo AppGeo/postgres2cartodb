@@ -1,3 +1,5 @@
 auth.json
 postgress.auth.json
 test.js
+postgres.json
+cartodb.json
