@@ -29,6 +29,12 @@ var argv = require('yargs')
     .alias('d', 'direct')
     .default('d', false)
     .describe('d', 'upload directly to the table (create/append only)'.yellow)
+    .alias('s', 'subdomainless')
+    .boolean('s')
+    .default('s', undefined)
+    .describe('s', 'whether to use subdomainless url mode'.yellow)
+    .alias('D', 'domain')
+    .describe('D', 'whether to use the non default domain'.yellow)
     .example('$0 -p ./postgres.json -c ./cartodb.json inTable outTable', 'specify the files'.green)
     .example('$0 inTable', 'use environmental variables and the same table names'.green)
     .example('$0 inTable outTable --no-g', 'use environmental variables and pass no geometry'.green)
@@ -70,7 +76,9 @@ var config = {
   method: getMethod(),
   progress: true,
   batchSize: parseInt(argv.b, 10),
-  direct: argv.d
+  direct: argv.d,
+  domain: argv.D,
+  subdomainless: argv.s
 };
 convert(config, function (err) {
   if (err) {

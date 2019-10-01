@@ -24,6 +24,12 @@ function convert(config, callback) {
   if (config.direct) {
     options.direct = config.direct;
   }
+  if (config.domain) {
+    options.domain = config.domain;
+  }
+  if (config.subdomainless) {
+    options.subdomainless = config.subdomainless;
+  }
   var cartodbTable = config.cartodb.table || postgresTable;
   var bar;
   function tick(num) {
