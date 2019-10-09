@@ -1,6 +1,6 @@
 {
   "name": "postgres2cartodb",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "description": "add data into cartodb from postgres",
   "main": "index.js",
   "scripts": {
